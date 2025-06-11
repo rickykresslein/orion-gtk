@@ -40,7 +40,6 @@ class KagiWindow(Adw.ApplicationWindow):
                 folder = dialog.select_folder_finish(result)
                 if folder:
                     self.current_directory = folder.get_path()
-                    self._update_directory_display()
                     self._refresh_file_list()
                     #self.file_watcher.watch_directory(self.current_directory)
                     self.watch_directory(self.current_directory)
@@ -48,14 +47,6 @@ class KagiWindow(Adw.ApplicationWindow):
                 print(f"Directory selection canceled or failed: {e}")
 
         dialog.select_folder(parent=self, callback=on_response)
-
-    def _update_directory_display(self):
-        """Update the directory display in the sidebar"""
-        if self.current_directory:
-            dir_name = os.path.basename(self.current_directory)
-
-            #self.dir_banner.set_title(f"Viewing: {dir_name}")
-            #self.dir_banner.set_revealed(True)
 
     def _refresh_file_list(self):
         """Refresh the file list from the current directory"""
