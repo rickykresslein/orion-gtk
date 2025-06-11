@@ -200,7 +200,6 @@ class KagiWindow(Adw.ApplicationWindow):
         directory = Gio.File.new_for_path(path)
         self.monitor = directory.monitor_directory(Gio.FileMonitorFlags.NONE, None)
         self.monitor.connect('changed', self.directory_changed)
-        print("Watching")
 
     def directory_changed(self, monitor, file, other_file, event_type):
-        print("CHANGED")
+        self._refresh_file_list
