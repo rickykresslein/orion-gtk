@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="Adw" version="1.0"/>
+  <template class="KagiWindow" parent="AdwApplicationWindow">
+    <property name="width-request">1000</property>
+    <property name="height-request">700</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 400sp</condition>
+        <setter object="split_view" property="collapsed">True</setter>
+      </object>
+    </child>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <property name="top-bar-style">raised</property>
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <child type="start">
+              <object class="GtkButton" id="open_dir_btn">
+                <property name="icon-name">folder-open-symbolic</property>
+                <property name="tooltip-text" translatable="yes">Open Directory</property>
+                <property name="action-name">win.open</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <property name="content">
+          <object class="AdwOverlaySplitView" id="split_view">
+
+            <property name="sidebar">
+
+                <object class="GtkListBox" id="file_list_box">
+                  <property name="selection-mode">single</property>
+                  <!--<style>
+                    <class name="boxed-list"/>
+                  </style>-->
+                  <!-- rows -->
+                </object>
+
+            </property>
+            <property name="content">
+
+              <object class="GtkScrolledWindow" id="web_scrolled">
+                <property name="child">
+
+                  <object class="GtkLabel" id="label">
+                    <property name="label" translatable="yes">Hello, World!</property>
+                    <style>
+                      <class name="title-1"/>
+                    </style>
+                  </object>
+
+                </property>
+              </object>
+
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>

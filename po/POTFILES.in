@@ -1,0 +1,8 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+data/io.unobserved.Kagi.desktop.in
+data/io.unobserved.Kagi.metainfo.xml.in
+data/io.unobserved.Kagi.gschema.xml
+src/main.py
+src/window.py
+src/window.ui
