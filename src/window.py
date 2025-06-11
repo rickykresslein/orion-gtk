@@ -4,7 +4,6 @@ from pathlib import Path
 from gi.repository import Adw, Gio, Gtk, WebKit
 
 @Gtk.Template(resource_path='/io/unobserved/Kagi/window.ui')
-#@Gtk.Template(filename='/home/ricky/Projects/kagi/src/window.ui')
 class KagiWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'KagiWindow'
 
@@ -14,8 +13,6 @@ class KagiWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        #self.file_watcher = FileWatcher(self._refresh_file_list)
-
         open_dir_action = Gio.SimpleAction(name="open")
         open_dir_action.connect("activate", self._open_dir_picker)
         self.add_action(open_dir_action)
@@ -24,7 +21,6 @@ class KagiWindow(Adw.ApplicationWindow):
 
         self.monitor = None
 
-        # Web view
         self.web_view = WebKit.WebView()
         self.web_scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.web_scrolled.set_child(self.web_view)
@@ -41,7 +37,6 @@ class KagiWindow(Adw.ApplicationWindow):
                 if folder:
                     self.current_directory = folder.get_path()
                     self._refresh_file_list()
-                    #self.file_watcher.watch_directory(self.current_directory)
                     self.watch_directory(self.current_directory)
             except Exception as e:
                 print(f"Directory selection canceled or failed: {e}")
@@ -50,7 +45,7 @@ class KagiWindow(Adw.ApplicationWindow):
 
     def _refresh_file_list(self):
         """Refresh the file list from the current directory"""
-        print("Refreshing...")
+
         # Clear existing items
         while True:
             row = self.file_list_box.get_first_child()
@@ -62,17 +57,14 @@ class KagiWindow(Adw.ApplicationWindow):
             return
 
         try:
-            # Get directory contents
             entries = []
             for item in os.listdir(self.current_directory):
                 full_path = os.path.join(self.current_directory, item)
                 if os.path.isfile(full_path):
                     entries.append((item, full_path))
 
-            # Sort entries
             entries.sort(key=lambda x: x[0].lower())
 
-            # Add to list box
             for filename, full_path in entries:
                 row = self._create_file_row(filename, full_path)
                 self.file_list_box.append(row)
@@ -82,17 +74,15 @@ class KagiWindow(Adw.ApplicationWindow):
         except Exception as e:
             print(f"Error reading directory: {e}")
 
-        return False  # Don't repeat timeout
+        return False
 
     def _create_file_row(self, filename, full_path):
         """Create a list box row for a file"""
         row = Adw.ActionRow()
         row.set_title(filename)
 
-        # Store full path as data
         row.full_path = full_path
 
-        # Add icon based on file type
         if filename.lower().endswith(('.html', '.htm')):
             icon = Gtk.Image.new_from_icon_name("text-html-symbolic")
             row.set_subtitle("HTML file")
@@ -111,11 +101,9 @@ class KagiWindow(Adw.ApplicationWindow):
         filename = row.get_title()
         full_path = row.full_path
 
-        # Check if it's an HTML file
         if filename.lower().endswith(('.html', '.htm')):
             self._load_html_file(full_path)
         else:
-            # Show message for non-HTML files
             self.web_view.load_html("""
                 <html>
                 <head>
