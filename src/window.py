@@ -60,8 +60,7 @@ class KagiWindow(Adw.ApplicationWindow):
             entries = []
             for item in os.listdir(self.current_directory):
                 full_path = os.path.join(self.current_directory, item)
-                if os.path.isfile(full_path):
-                    entries.append((item, full_path))
+                entries.append((item, full_path))
 
             entries.sort(key=lambda x: x[0].lower())
 
@@ -83,7 +82,10 @@ class KagiWindow(Adw.ApplicationWindow):
 
         row.full_path = full_path
 
-        if filename.lower().endswith(('.html', '.htm')):
+        if os.path.isdir(full_path):
+            icon = Gtk.Image.new_from_icon_name("folder-symbolic")
+            row.set_subtitle("Directory")
+        elif filename.lower().endswith(('.html', '.htm')):
             icon = Gtk.Image.new_from_icon_name("text-html-symbolic")
             row.set_subtitle("HTML file")
         else:

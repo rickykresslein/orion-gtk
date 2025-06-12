@@ -1,0 +1,13 @@
+[default]
+name=Default
+runtime=host
+toolchain=default
+config-opts=
+run-opts=
+prefix=/var/home/ricky/Projects/.gnome-builder/projects/kagi/install/host
+app-id=
+postbuild=
+prebuild=
+run-command=
+
+[default.environment]
