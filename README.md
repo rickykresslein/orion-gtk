@@ -1,3 +1,3 @@
-# kagi
+# Orion GTK Demo
 
-A description of this project.
+A demo project of Orion for Linux built with Python, GTK4 and Libadwaita.
