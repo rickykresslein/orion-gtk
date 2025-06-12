@@ -171,7 +171,7 @@ class KagiWindow(Adw.ApplicationWindow):
             """
             self.web_view.load_html(error_html)
 
-    def watch_directory(self, path):
+    def _watch_directory(self, path):
         if self.monitor:
             self.monitor.cancel()
 
@@ -182,5 +182,5 @@ class KagiWindow(Adw.ApplicationWindow):
         self.monitor = directory.monitor_directory(Gio.FileMonitorFlags.NONE, None)
         self.monitor.connect('changed', self.directory_changed)
 
-    def directory_changed(self, monitor, file, other_file, event_type):
+    def _directory_changed(self, monitor, file, other_file, event_type):
         self._refresh_file_list
