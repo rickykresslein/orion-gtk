@@ -27,17 +27,10 @@
         </child>
         <property name="content">
           <object class="AdwOverlaySplitView" id="split_view">
-
             <property name="sidebar">
-
                 <object class="GtkListBox" id="file_list_box">
                   <property name="selection-mode">single</property>
-                  <!--<style>
-                    <class name="boxed-list"/>
-                  </style>-->
-                  <!-- rows -->
                 </object>
-
             </property>
             <property name="content">
 
